@@ -9,6 +9,12 @@ buildscript {
     }
     repositories {
         google()
+           maven {
+             url 'https://maven.aliyun.com/repository/public/'
+            }
+           maven {
+             url 'https://maven.aliyun.com/repository/central'
+            }
         mavenCentral()
     }
     dependencies {
@@ -17,5 +23,18 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
     }
 }
+
+// allprojects{
+//     repositories {
+//         google()
+//         maven {
+//              url 'https://maven.aliyun.com/repository/public/'
+//             }
+//            maven {
+//              url 'https://maven.aliyun.com/repository/central'
+//             }
+//          mavenCentral()
+//     }
+// }
 
 apply plugin: "com.facebook.react.rootproject"
