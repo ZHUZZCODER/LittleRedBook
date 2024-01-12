@@ -23,7 +23,7 @@ function App(): React.JSX.Element {
     <SafeAreaProvider>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        backgroundColor={'white'}
       />
       <NavigationStack />
     </SafeAreaProvider>
