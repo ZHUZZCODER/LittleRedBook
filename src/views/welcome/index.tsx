@@ -1,10 +1,11 @@
-import React, {memo} from 'react';
+import React, {memo, useCallback} from 'react';
 import {FC, ReactNode, useEffect} from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {API_URL} from '@/config';
 import type {StackScreenNavigationProp} from '@/router';
+import localStorage from '@/utils/storage';
 import IconMainLogo from '@/assets/images/icon_main_logo.png';
+import {isEmptyObject} from '@/utils/utils';
 
 interface IProps {
   children?: ReactNode;
@@ -13,9 +14,19 @@ interface IProps {
 const Welcome: FC<IProps> = props => {
   const naviagtion = useNavigation<StackScreenNavigationProp>();
 
+  const handleJumpTo = useCallback(async () => {
+    const userInfo = await localStorage.getCache('userInfo');
+    if (userInfo && isEmptyObject(userInfo)) {
+      console.log('userInfo=', userInfo);
+      naviagtion.replace('Home');
+    } else {
+      naviagtion.replace('Login');
+    }
+  }, []);
+
   useEffect(() => {
     setTimeout(() => {
-      naviagtion.replace('Login');
+      handleJumpTo();
     }, 3000);
   }, []);
 
