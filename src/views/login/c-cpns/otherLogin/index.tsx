@@ -24,6 +24,7 @@ import {
   replaceBlank,
 } from '@/utils/utils';
 import type {StackScreenNavigationProp} from '@/router';
+import {observer} from 'mobx-react';
 import IconQq from '@/assets/images/icon_qq.webp';
 import IconWx from '@/assets/images/icon_wx.png';
 import IconExchange from '@/assets/images/icon_exchange.png';
@@ -31,6 +32,7 @@ import IconEyeOpen from '@/assets/images/icon_eye_open.png';
 import IconEyeClose from '@/assets/images/icon_eye_close.png';
 import IconTriangle from '@/assets/images/icon_triangle.png';
 import IconCloseModal from '@/assets/images/icon_close_modal.png';
+import {useStore} from '@/store';
 
 interface IProps {
   children?: ReactNode;
@@ -40,6 +42,7 @@ interface IProps {
 const OtherLogin: FC<IProps> = props => {
   const {changeLoginWay} = props;
   const navigation = useNavigation<StackScreenNavigationProp>();
+  const {userStore} = useStore();
 
   //显示隐藏密码
   const [showPassword, setShowPassword] = useState(false);
@@ -47,14 +50,6 @@ const OtherLogin: FC<IProps> = props => {
   const selectedRef = useRef<{getIconSelected(): boolean} | null>(null);
 
   //用户登录用户名和密码
-  const [accountPassword, setAccountPassword] = useState<{
-    account: string;
-    password: string;
-  }>({
-    account: '',
-    password: '',
-  });
-
   const [account, setAccount] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -90,13 +85,13 @@ const OtherLogin: FC<IProps> = props => {
   );
 
   //处理登录
-  const handleLogin = useCallback(() => {
+  const handleLogin = useCallback(async () => {
     const isSelected = selectedRef.current?.getIconSelected();
     let accountNum = replaceBlank(account);
     if (!verifyPhone(accountNum) || !verifyPassword(password) || !isSelected)
       return;
-    //跳转主页
-
+    //跳转主页18751609896
+    await userStore.changeUserInfo(accountNum, password);
     navigation.replace('Home');
   }, [account, password, selectedRef]);
 
@@ -299,4 +294,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(OtherLogin);
+export default memo(observer(OtherLogin));

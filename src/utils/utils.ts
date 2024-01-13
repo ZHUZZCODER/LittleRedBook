@@ -1,3 +1,5 @@
+import {PlanObject} from '@/type/base';
+
 //电话号码增加空格
 const formatPhone = (phoneNumber: string): string => {
   const phoneNumberTrim: string = phoneNumber.replace(/\s+/g, '');
@@ -29,4 +31,9 @@ const verifyPassword = (password: string) => {
   return regs.test(password);
 };
 
-export {formatPhone, replaceBlank, verifyPhone, verifyPassword};
+//判断对象是否为空
+const isEmptyObject = (originObj: object) => {
+  return !!Object.keys(originObj).length;
+};
+
+export {formatPhone, replaceBlank, verifyPhone, verifyPassword, isEmptyObject};
