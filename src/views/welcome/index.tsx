@@ -14,11 +14,11 @@ interface IProps {
 const Welcome: FC<IProps> = props => {
   const naviagtion = useNavigation<StackScreenNavigationProp>();
 
+  //判断是否登录
   const handleJumpTo = useCallback(async () => {
     const userInfo = await localStorage.getCache('userInfo');
     if (userInfo && isEmptyObject(userInfo)) {
-      console.log('userInfo=', userInfo);
-      naviagtion.replace('Home');
+      naviagtion.replace('MainHome');
     } else {
       naviagtion.replace('Login');
     }

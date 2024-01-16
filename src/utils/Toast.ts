@@ -1,10 +1,17 @@
-import {ToastAndroid} from 'react-native';
-
-type ToastDuration = ToastAndroid['SHORT'] | ToastAndroid['LONG'];
+//使用Android和ios都支持的Toast
+import {Toast} from 'react-native-toast-notifications';
+import type {ToastOptions} from 'react-native-toast-notifications';
 
 export const ToastShow = (
-  msg: string,
-  duration: ToastDuration = ToastAndroid.SHORT,
+  msg: string | JSX.Element,
+  duration: ToastOptions['duration'] = 3000,
+  placement: ToastOptions['placement'] = 'center',
+  options: ToastOptions = {},
 ) => {
-  ToastAndroid.show(msg, duration);
+  Toast.show(msg, {
+    duration,
+    placement,
+    type: 'normal',
+    ...options,
+  });
 };

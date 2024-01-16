@@ -22,3 +22,7 @@ export const getType = (args: unknown) => {
 export const isString = (value: unknown): value is string => {
   return typeof value === DataType.String;
 };
+
+export const isArray = <T = unknown>(value: unknown): value is T[] => {
+  return Array.isArray(value);
+};

@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Keyboard,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import TouchableRadio from '@/components/TouchableRadio';
@@ -23,7 +24,7 @@ import {
   verifyPassword,
   replaceBlank,
 } from '@/utils/utils';
-import type {StackScreenNavigationProp} from '@/router';
+import type {StackScreenNavigationProp, NavigationScreenProps} from '@/router';
 import {observer} from 'mobx-react';
 import IconQq from '@/assets/images/icon_qq.webp';
 import IconWx from '@/assets/images/icon_wx.png';
@@ -41,7 +42,7 @@ interface IProps {
 
 const OtherLogin: FC<IProps> = props => {
   const {changeLoginWay} = props;
-  const navigation = useNavigation<StackScreenNavigationProp>();
+  const navigation = useNavigation<NavigationScreenProps>();
   const {userStore} = useStore();
 
   //显示隐藏密码
@@ -86,13 +87,15 @@ const OtherLogin: FC<IProps> = props => {
 
   //处理登录
   const handleLogin = useCallback(async () => {
+    Keyboard.dismiss();
     const isSelected = selectedRef.current?.getIconSelected();
     let accountNum = replaceBlank(account);
     if (!verifyPhone(accountNum) || !verifyPassword(password) || !isSelected)
       return;
     //跳转主页18751609896
     await userStore.changeUserInfo(accountNum, password);
-    navigation.replace('Home');
+
+    navigation.replace('MainHome');
   }, [account, password, selectedRef]);
 
   return (
@@ -129,6 +132,7 @@ const OtherLogin: FC<IProps> = props => {
           secureTextEntry={!showPassword}
           value={password}
           onChangeText={handleChangeTextPassword}
+          onSubmitEditing={Keyboard.dismiss}
           style={styles.passwordInput}
         />
         <TouchableOpacity onPress={handleShowHidePassword}>

@@ -6,6 +6,7 @@ import type {
   AxiosResponse,
   AxiosRequestHeaders,
 } from 'axios';
+import Loading, {GlobalLoading} from '@/components/Loading';
 
 interface Interceptors<T = AxiosResponse> {
   requestInterceptor?: (
@@ -18,6 +19,7 @@ interface Interceptors<T = AxiosResponse> {
 
 interface RequstConfig<T = AxiosResponse> extends AxiosRequestConfig {
   interceptors?: Interceptors<T>;
+  showLoading?: boolean;
 }
 
 type ConfigInterceptors<T = AxiosResponse> = Omit<
@@ -31,14 +33,17 @@ interface MethodInterceptors<T = AxiosResponse> extends ConfigInterceptors<T> {
 
 interface RequestMethodConfig<T> extends AxiosRequestConfig {
   interceptors?: MethodInterceptors<T>;
+  showLoading?: boolean;
 }
 
 class ZHURequest {
   instance: AxiosInstance;
   interceptors?: Interceptors;
+  showLoading?: boolean;
   constructor(config: RequstConfig) {
     this.instance = axios.create(config);
     if (config.interceptors) this.interceptors = config.interceptors;
+    this.showLoading = config.showLoading ?? false;
     this.instance.interceptors.request.use(
       this.interceptors?.requestInterceptor,
       this.interceptors?.requestInterceptorCatch,
@@ -49,6 +54,9 @@ class ZHURequest {
     );
     this.instance.interceptors.request.use(
       config => {
+        if (this.showLoading) {
+          GlobalLoading.show();
+        }
         // console.log('config=', config);
         return config;
       },
@@ -60,15 +68,20 @@ class ZHURequest {
     this.instance.interceptors.response.use(
       res => {
         console.log('res=', res);
+        if (this.showLoading) GlobalLoading.hide();
         return res.data;
       },
       err => {
+        if (this.showLoading) GlobalLoading.hide();
         return err;
       },
     );
   }
 
   request<T = any>(config: RequestMethodConfig<T>): Promise<T> {
+    if (config.showLoading) {
+      GlobalLoading.show();
+    }
     return new Promise((resolve, reject) => {
       if (config.interceptors?.requestInterceptor) {
         config = config.interceptors.requestInterceptor(config);
@@ -79,10 +92,12 @@ class ZHURequest {
           if (config.interceptors?.responseInterceptor) {
             res = config.interceptors.responseInterceptor(res);
           }
+          if (config.showLoading) GlobalLoading.hide();
           resolve(res);
           return res;
         })
         .catch(err => {
+          if (config.showLoading) GlobalLoading.hide();
           reject(err);
           return err;
         });
