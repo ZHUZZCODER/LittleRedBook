@@ -26,3 +26,7 @@ export const isString = (value: unknown): value is string => {
 export const isArray = <T = unknown>(value: unknown): value is T[] => {
   return Array.isArray(value);
 };
+
+export const isDefined = (value: unknown): boolean => {
+  return value !== null && value !== undefined && value !== '';
+};

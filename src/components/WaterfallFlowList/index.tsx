@@ -31,6 +31,8 @@ interface IProps {
   extraData: any;
   //头部组件
   headerComponent?: JSX.Element;
+  //点击跳转函数
+  onDetailPress?: (id: number) => void;
 }
 
 const WaterfallFlowList: FC<IProps> = ({
@@ -43,12 +45,22 @@ const WaterfallFlowList: FC<IProps> = ({
   onRefresh,
   extraData,
   headerComponent,
+  onDetailPress,
 }) => {
   const numColumnsVal = useRef(numColumns);
+
+  //处理点击
+  const handleDetailPress = useCallback(
+    (detailId: number) => {
+      onDetailPress?.(detailId);
+    },
+    [onDetailPress],
+  );
+
   //渲染每一项
   const handleRenderItem = useCallback(
     ({
-      item: {image, title, avatarUrl, userName, favoriteCount, isFavorite},
+      item: {image, title, avatarUrl, userName, favoriteCount, isFavorite, id},
       columnIndex,
     }: {
       item: HomeList;
@@ -56,6 +68,7 @@ const WaterfallFlowList: FC<IProps> = ({
     }) => {
       return (
         <TouchableOpacity
+          onPress={() => handleDetailPress(id)}
           style={[
             FlowItemStyle.flowContainer,
             {

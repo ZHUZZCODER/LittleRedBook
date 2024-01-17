@@ -3,6 +3,7 @@ import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import type {
   CompositeScreenProps,
   CompositeNavigationProp,
+  RouteProp,
 } from '@react-navigation/native';
 import type {
   BottomTabScreenProps,
@@ -17,6 +18,9 @@ type RootStackParamList = {
   Welcome: undefined;
   Login: undefined;
   MainHome: undefined;
+  ArticleDetials: {
+    id: number;
+  };
 };
 
 type RootTabParamList = {
@@ -31,7 +35,20 @@ export type StackScreenNavigationProp = NativeStackNavigationProp<
   keyof RootStackParamList
 >;
 
+//useNavigation类型
 export type NavigationScreenProps = CompositeNavigationProp<
   BottomTabNavigationProp<RootTabParamList, keyof RootTabParamList>,
   StackNavigationProp<RootStackParamList, keyof RootStackParamList>
+>;
+
+//props类型
+export type NavigationScreenProp = CompositeScreenProps<
+  BottomTabScreenProps<RootTabParamList, keyof RootTabParamList>,
+  StackScreenProps<RootStackParamList>
+>;
+
+//route类型
+export type NavigationScreenRoute = RouteProp<
+  RootStackParamList & RootTabParamList,
+  keyof RootStackParamList | keyof RootTabParamList
 >;

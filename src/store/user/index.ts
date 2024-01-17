@@ -41,4 +41,9 @@ export default class UserStore {
       }
     });
   }
+
+  //修改userInfo
+  changeUserInfoData(userInfo: UserInfo) {
+    this.userInfo = userInfo;
+  }
 }

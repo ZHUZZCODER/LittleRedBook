@@ -6,12 +6,15 @@ import HomeHeader from './c-cpns/HomeHeader';
 import WaterfallFlowList from '@/components/WaterfallFlowList';
 import {useStore} from '@/store';
 import HeaderCategory from './c-cpns/HeaderCategory';
+import {useNavigation} from '@react-navigation/native';
+import type {NavigationScreenProps} from '@/router';
 
 interface IProps {
   children?: ReactNode;
 }
 
 const Home: FC<IProps> = props => {
+  const navigation = useNavigation<NavigationScreenProps>();
   const {homeStore} = useStore();
 
   //注意：修改数据得用homeStore，或者解构后绑定this，不然修改数据不生效
@@ -19,6 +22,13 @@ const Home: FC<IProps> = props => {
     homeStore.requestChangeHomeList();
     homeStore.changeCategoryList();
   }, []);
+
+  const handleDetialPress = useCallback(
+    (id: number) => {
+      navigation.push('ArticleDetials', {id});
+    },
+    [navigation],
+  );
 
   return (
     <View style={styles.container}>
@@ -33,6 +43,7 @@ const Home: FC<IProps> = props => {
             isEndStatus={homeStore.isEnd}
             extraData={homeStore.refreshing}
             headerComponent={<HeaderCategory />}
+            onDetailPress={handleDetialPress}
           />
         )}
       </View>

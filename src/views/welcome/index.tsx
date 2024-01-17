@@ -6,18 +6,21 @@ import type {StackScreenNavigationProp} from '@/router';
 import localStorage from '@/utils/storage';
 import IconMainLogo from '@/assets/images/icon_main_logo.png';
 import {isEmptyObject} from '@/utils/utils';
+import {useStore} from '@/store';
 
 interface IProps {
   children?: ReactNode;
 }
 
 const Welcome: FC<IProps> = props => {
+  const {userStore} = useStore();
   const naviagtion = useNavigation<StackScreenNavigationProp>();
 
   //判断是否登录
   const handleJumpTo = useCallback(async () => {
     const userInfo = await localStorage.getCache('userInfo');
     if (userInfo && isEmptyObject(userInfo)) {
+      userStore.changeUserInfoData(userInfo);
       naviagtion.replace('MainHome');
     } else {
       naviagtion.replace('Login');
