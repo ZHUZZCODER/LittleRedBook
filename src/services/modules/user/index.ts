@@ -4,5 +4,6 @@ export const userLogin = (params: {name: string; pwd: string}) => {
   return AxiosRequest.GET({
     url: '/user/login',
     params,
+    showLoading: true,
   });
 };

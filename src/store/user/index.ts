@@ -31,6 +31,7 @@ export default class UserStore {
           ToastShow('登录成功!');
           resolve(true);
         } else {
+          console.log('登录失败!!!');
           ToastShow('登录失败!');
           reject();
         }

@@ -9,6 +9,9 @@ import React from 'react';
 import {StatusBar, useColorScheme} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationStack} from '@/router';
+//集成Android和ios都支持的Toast
+import {ToastProvider} from 'react-native-toast-notifications';
+import LoadingProvider from '@/components/Loading';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
@@ -20,13 +23,18 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <SafeAreaProvider>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={'white'}
-      />
-      <NavigationStack />
-    </SafeAreaProvider>
+    <ToastProvider>
+      <SafeAreaProvider>
+        <LoadingProvider>
+          <StatusBar
+            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+            backgroundColor={'white'}
+          />
+
+          <NavigationStack />
+        </LoadingProvider>
+      </SafeAreaProvider>
+    </ToastProvider>
   );
 }
 

@@ -1,4 +1,5 @@
-import {PlanObject} from '@/type/base';
+import {GeneralFunciont, PlanObject} from '@/type/base';
+import {throttle} from 'underscore';
 
 //电话号码增加空格
 const formatPhone = (phoneNumber: string): string => {
@@ -36,4 +37,19 @@ const isEmptyObject = (originObj: object) => {
   return !!Object.keys(originObj).length;
 };
 
-export {formatPhone, replaceBlank, verifyPhone, verifyPassword, isEmptyObject};
+const throttleFn = <T extends Function>(
+  func: T,
+  wait: number,
+  options?: {leading?: boolean | undefined; trailing?: boolean | undefined},
+) => {
+  return throttle(func, wait, options);
+};
+
+export {
+  formatPhone,
+  replaceBlank,
+  verifyPhone,
+  verifyPassword,
+  isEmptyObject,
+  throttleFn,
+};

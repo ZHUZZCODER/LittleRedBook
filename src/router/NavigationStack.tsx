@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {memo} from 'react';
+import type {FC, ReactNode} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Welcome from '@/views/welcome';
 import Login from '@/views/login';
-import Home from '@/views/home';
+// import Home from '@/views/home';
+import NavigationTab from './NavigationTab';
+
+interface IProps {
+  children?: ReactNode;
+}
 
 const Stack = createNativeStackNavigator();
 
-const navigationStack = () => {
+const NavigationStack: FC<IProps> = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -26,8 +32,8 @@ const navigationStack = () => {
           }}
         />
         <Stack.Screen
-          name="Home"
-          component={Home}
+          name="MainHome"
+          component={NavigationTab}
           options={{
             headerShown: false,
           }}
@@ -37,4 +43,4 @@ const navigationStack = () => {
   );
 };
 
-export default navigationStack;
+export default memo(NavigationStack);
