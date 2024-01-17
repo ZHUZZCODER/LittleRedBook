@@ -5,16 +5,13 @@ import LocalStorage from '@/utils/storage';
 import type {HomeListParams} from '@/services';
 
 export interface HomeList {
+  id: number;
   userName: string;
   avatarUrl: string;
   title: string;
   image: string;
-  message: string;
-  dateTime: string;
-  location: string;
   favoriteCount: number;
   isFavorite: boolean;
-  children?: HomeList[];
 }
 
 export interface Category {

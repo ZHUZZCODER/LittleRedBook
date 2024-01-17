@@ -57,7 +57,7 @@ const HeartIcon: FC<IProps> = ({defaultValue, onChangePress, whSize = 20}) => {
     <TouchableOpacity onPress={handleHeartIconPress} style={styles.container}>
       <Image
         source={isShow ? IconHeart : IconHeartEmpty}
-        style={styles.heartIcon}
+        style={[styles.heartIcon, {width: whSize, height: whSize}]}
       />
       <Animated.View
         style={{
@@ -82,8 +82,6 @@ const HeartIcon: FC<IProps> = ({defaultValue, onChangePress, whSize = 20}) => {
 const styles = StyleSheet.create({
   container: {},
   heartIcon: {
-    width: 20,
-    height: 20,
     resizeMode: 'contain',
   },
 });

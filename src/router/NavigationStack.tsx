@@ -6,6 +6,7 @@ import Welcome from '@/views/welcome';
 import Login from '@/views/login';
 // import Home from '@/views/home';
 import NavigationTab from './NavigationTab';
+import ArticleDetails from '@/views/articleDetails';
 
 interface IProps {
   children?: ReactNode;
@@ -34,6 +35,13 @@ const NavigationStack: FC<IProps> = () => {
         <Stack.Screen
           name="MainHome"
           component={NavigationTab}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="ArticleDetials"
+          component={ArticleDetails}
           options={{
             headerShown: false,
           }}
