@@ -21,6 +21,7 @@ type RootStackParamList = {
   ArticleDetials: {
     id: number;
   };
+  SearchGoods: undefined;
 };
 
 type RootTabParamList = {
