@@ -1,3 +1,5 @@
+import type {PlanObject} from '@/type/base';
+
 enum DataType {
   String = 'string',
   Number = 'number',
@@ -29,4 +31,8 @@ export const isArray = <T = unknown>(value: unknown): value is T[] => {
 
 export const isDefined = (value: unknown): boolean => {
   return value !== null && value !== undefined && value !== '';
+};
+
+export const isObject = <T = PlanObject>(value: unknown): value is T => {
+  return getType(value) === DataType.Object;
 };
