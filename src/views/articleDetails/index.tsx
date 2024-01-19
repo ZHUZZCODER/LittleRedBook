@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   TextInput,
+  StatusBar,
 } from 'react-native';
 import DetailNav from './c-cpns/detailNav';
 import {observer} from 'mobx-react';
@@ -111,6 +112,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    paddingTop: StatusBar.currentHeight,
   },
   detailMsg: {
     paddingHorizontal: 16,

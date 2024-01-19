@@ -3,6 +3,7 @@ import type {FC, ReactNode} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import IconDaily from '@/assets/images/icon_daily.png';
 import IconSearch from '@/assets/images/icon_search.png';
+import NavTabs from '@/components/NavTabs';
 
 interface IProps {
   children?: ReactNode;
@@ -28,29 +29,11 @@ const HomeHeader: FC<IProps> = ({onHeaderPressChange, initIndex = 1}) => {
       <TouchableOpacity style={styles.barContainer}>
         <Image source={IconDaily} style={styles.barIcon} />
       </TouchableOpacity>
-      <View style={styles.centerBox}>
-        {btnListData.map((item, index) => {
-          const isActive = activeIndex === index;
-          return (
-            <TouchableOpacity
-              key={item}
-              onPress={() => {
-                setActiveIndex(index);
-                onHeaderPressChange?.(index);
-              }}
-              style={styles.headerTitle}>
-              <Text
-                style={[
-                  styles.normalHeaderTitle,
-                  isActive ? styles.activeHeaderTitle : {},
-                ]}>
-                {item}
-              </Text>
-              {isActive && <View style={styles.line}></View>}
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+      <NavTabs
+        btnListData={btnListData}
+        tabChangeCb={onHeaderPressChange}
+        style={{flex: 1}}
+      />
       <TouchableOpacity style={styles.barContainer}>
         <Image source={IconSearch} style={styles.barIcon} />
       </TouchableOpacity>

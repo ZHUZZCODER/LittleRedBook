@@ -3,7 +3,7 @@ import {userLogin} from '@/services';
 import localStorage from '@/utils/storage';
 import {ToastShow} from '@/utils/Toast';
 
-interface UserInfo {
+export interface UserInfo {
   name: string;
   avatar: string;
   desc: string;
