@@ -1,6 +1,7 @@
-import React, {memo, useEffect, useMemo} from 'react';
-import type {FC, ReactNode} from 'react';
+import React, {memo, useCallback, useEffect, useMemo, useRef} from 'react';
+import type {FC, ReactNode, ElementRef} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import type {GestureResponderEvent} from 'react-native';
 import {observer} from 'mobx-react';
 import {useStore} from '@/store';
 import MessageNav from './c-cpns/messageNav';
@@ -13,6 +14,7 @@ import type {UnRead} from '@/store/message';
 import MessageList from './c-cpns/messageList';
 import Empty from '@/components/Empty';
 import IconNoCollection from '@/assets/images/icon_no_collection.webp';
+import MessageModal from './c-cpns/messageModal';
 
 interface IProps {
   children?: ReactNode;
@@ -21,6 +23,8 @@ interface IProps {
 const Message: FC<IProps> = props => {
   const {messageStore} = useStore();
   const {unRead, messageList} = messageStore;
+  //modal实例
+  const modalIntance = useRef<ElementRef<typeof MessageModal>>(null);
   useEffect(() => {
     messageStore.requestMessageList();
     messageStore.requestUnread();
@@ -51,10 +55,16 @@ const Message: FC<IProps> = props => {
     }
   }, [unRead]);
 
+  const handleOpenModal = useCallback(
+    ({nativeEvent: {pageY}}: GestureResponderEvent) => {
+      modalIntance.current?.showModal(pageY + 48);
+    },
+    [modalIntance.current],
+  );
+
   return (
     <View style={styles.container}>
-      <MessageNav />
-      {}
+      <MessageNav messageGroupFn={handleOpenModal} />
       {!!messageList.length && (
         <MessageList
           messageList={messageList}
@@ -70,6 +80,7 @@ const Message: FC<IProps> = props => {
           }
         />
       )}
+      <MessageModal ref={modalIntance} />
     </View>
   );
 };
