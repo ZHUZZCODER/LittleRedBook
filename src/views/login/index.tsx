@@ -1,6 +1,6 @@
 import React, {memo, useCallback, useState} from 'react';
 import type {FC, ReactNode} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, StatusBar} from 'react-native';
 import QuickLogin from './c-cpns/quickLogin';
 import OtherLogin from './c-cpns/otherLogin';
 
@@ -19,14 +19,21 @@ const Login: FC<IProps> = props => {
   );
 
   return (
-    <>
+    <View style={styles.container}>
       {loginWay ? (
         <QuickLogin loginWay={loginWay} changeLoginWay={handleChangeLoginWay} />
       ) : (
         <OtherLogin changeLoginWay={handleChangeLoginWay} />
       )}
-    </>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor: 'white',
+  },
+});
 
 export default memo(Login);

@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StatusBar, useColorScheme} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationStack} from '@/router';
@@ -13,22 +13,17 @@ import {NavigationStack} from '@/router';
 import {ToastProvider} from 'react-native-toast-notifications';
 import LoadingProvider from '@/components/Loading';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  //状态栏颜色：dark-content： 黑 light-content： '白'
 
   return (
     <ToastProvider>
       <SafeAreaProvider>
         <LoadingProvider>
           <StatusBar
-            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor={'white'}
+            translucent
+            barStyle={'dark-content'}
+            backgroundColor={'transparent'}
           />
 
           <NavigationStack />

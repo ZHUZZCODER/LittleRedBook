@@ -1,4 +1,11 @@
-import React, {memo, useCallback, useMemo, useRef} from 'react';
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import type {FC, ReactNode} from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import WaterfallFlow from '@/components/WaterfallFlow';
@@ -33,6 +40,8 @@ interface IProps {
   headerComponent?: JSX.Element;
   //点击跳转函数
   onDetailPress?: (id: number) => void;
+  //是否图片等比例
+  isResizeImg?: boolean;
 }
 
 const WaterfallFlowList: FC<IProps> = ({
@@ -46,7 +55,15 @@ const WaterfallFlowList: FC<IProps> = ({
   extraData,
   headerComponent,
   onDetailPress,
+  isResizeImg = false,
 }) => {
+  const [flowList, setFlowList] = useState<HomeList[]>([]);
+  useEffect(() => {
+    console.log('data+渲染', data);
+    if (!!data && !!data.length) {
+      setFlowList(data);
+    }
+  }, [data]);
   const numColumnsVal = useRef(numColumns);
 
   //处理点击
@@ -75,7 +92,12 @@ const WaterfallFlowList: FC<IProps> = ({
               marginLeft: columnIndex === 0 ? 6 : 0,
             },
           ]}>
-          <ProportionImage src={image} />
+          {!isResizeImg ? (
+            <Image src={image} style={FlowItemStyle.img} />
+          ) : (
+            <ProportionImage src={image} />
+          )}
+
           <View style={FlowItemStyle.infoBox}>
             <Text style={FlowItemStyle.titleTx}>{title}</Text>
             <View style={FlowItemStyle.infoMsg}>
@@ -112,7 +134,7 @@ const WaterfallFlowList: FC<IProps> = ({
 
   return (
     <WaterfallFlow
-      data={data}
+      data={flowList}
       numColumns={numColumnsVal.current}
       renderItem={handleRenderItem}
       keyExtractor={(item: {id: string | number}) => `${item.id}`}
@@ -182,6 +204,10 @@ const FlowItemStyle = StyleSheet.create({
     fontSize: 14,
     color: '#999',
     marginLeft: 4,
+  },
+  img: {
+    width: '100%',
+    height: 240,
   },
 });
 

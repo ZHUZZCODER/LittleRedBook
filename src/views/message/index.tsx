@@ -1,6 +1,6 @@
 import React, {memo, useCallback, useEffect, useMemo, useRef} from 'react';
 import type {FC, ReactNode, ElementRef} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, StatusBar} from 'react-native';
 import type {GestureResponderEvent} from 'react-native';
 import {observer} from 'mobx-react';
 import {useStore} from '@/store';
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    paddingTop: StatusBar.currentHeight,
   },
 });
 

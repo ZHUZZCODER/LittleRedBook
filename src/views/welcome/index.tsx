@@ -1,6 +1,6 @@
 import React, {memo, useCallback} from 'react';
 import {FC, ReactNode, useEffect} from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, StatusBar} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {StackScreenNavigationProp} from '@/router';
 import localStorage from '@/utils/storage';
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: 'white',
+    paddingTop: StatusBar.currentHeight,
   },
   iconMain: {
     width: 200,

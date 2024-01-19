@@ -1,6 +1,6 @@
 import React, {memo, useCallback, useEffect} from 'react';
 import type {FC, ReactNode} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, StatusBar} from 'react-native';
 import {observer} from 'mobx-react';
 import HomeHeader from './c-cpns/HomeHeader';
 import WaterfallFlowList from '@/components/WaterfallFlowList';
@@ -44,6 +44,7 @@ const Home: FC<IProps> = props => {
             extraData={homeStore.refreshing}
             headerComponent={<HeaderCategory />}
             onDetailPress={handleDetialPress}
+            isResizeImg={true}
           />
         )}
       </View>
@@ -54,6 +55,8 @@ const Home: FC<IProps> = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor: 'white',
   },
   flowListContainer: {
     width: '100%',

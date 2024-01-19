@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
   TextInput,
   LayoutAnimation,
+  StatusBar,
 } from 'react-native';
 import IconArrow from '@/assets/images/icon_arrow.png';
 import IconSearch from '@/assets/images/icon_search.png';
@@ -67,11 +68,12 @@ const SearchGoods: FC<IProps> = props => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: StatusBar.currentHeight,
+    backgroundColor: 'white',
     width: '100%',
     height: 40,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
   },
   backBtn: {
     height: '100%',
