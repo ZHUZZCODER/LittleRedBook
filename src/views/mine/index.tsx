@@ -46,7 +46,7 @@ const Mine: FC<IProps> = props => {
   const [imgHeight, setImgHeight] = useState(400);
   const [list, setList] = useState<ArticleSimple[]>([]);
   //弹框实例
-  const mineSlider = useRef<MessageModalInstance>();
+  const mineSlider = useRef<MessageModalInstance>(null);
 
   useEffect(() => {
     requestMineData();
@@ -176,7 +176,6 @@ const styles = StyleSheet.create({
   },
   mineList: {
     flex: 1,
-    backgroundColor: 'red',
   },
   listContainer: {
     width: '100%',
