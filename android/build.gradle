@@ -24,17 +24,17 @@ buildscript {
     }
 }
 
-// allprojects{
-//     repositories {
-//         google()
-//         maven {
-//              url 'https://maven.aliyun.com/repository/public/'
-//             }
-//            maven {
-//              url 'https://maven.aliyun.com/repository/central'
-//             }
-//          mavenCentral()
-//     }
-// }
+ allprojects{
+     repositories {
+         google()
+         maven {
+              url 'https://maven.aliyun.com/repository/public/'
+             }
+            maven {
+              url 'https://maven.aliyun.com/repository/central'
+             }
+          mavenCentral()
+     }
+ }
 
 apply plugin: "com.facebook.react.rootproject"

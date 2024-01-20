@@ -46,7 +46,7 @@ const MineInfo: FC<IProps> = props => {
               </View>
             </View>
           </View>
-          <Text style={styles.infoDesc}>小红书简介</Text>
+          <Text style={styles.infoDesc}>个人简介信息</Text>
           <View style={styles.sexBox}>
             <Image
               source={userInfo.sex === 'male' ? IconMan : IconFemale}
@@ -152,14 +152,16 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   followFans: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 20,
     marginBottom: 28,
+    paddingHorizontal: 16,
   },
   infoItem: {
     alignItems: 'center',
-    paddingHorizontal: 16,
+    paddingRight: 16,
   },
   infoCount: {
     fontSize: 18,

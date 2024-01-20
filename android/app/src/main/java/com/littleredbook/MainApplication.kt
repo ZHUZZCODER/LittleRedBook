@@ -11,6 +11,8 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
+//热更新集成
+import cn.reactnative.modules.update.UpdateContext;
 
 class MainApplication : Application(), ReactApplication {
 
@@ -21,6 +23,11 @@ class MainApplication : Application(), ReactApplication {
               // Packages that cannot be autolinked yet can be added manually here, for example:
               // add(MyReactNativePackage())
             }
+        
+        //集成热更新
+         override fun getJSBundleFile(): String? {
+          return UpdateContext.getBundleUrl(this@MainApplication)
+        }
 
         override fun getJSMainModuleName(): String = "index"
 

@@ -159,7 +159,6 @@ const WaterfallFlowList: FC<IProps> = ({
 const FlowItemStyle = StyleSheet.create({
   flowContainer: {
     borderRadius: 8,
-    backgroundColor: 'red',
     marginRight: 6,
     marginBottom: 6,
     overflow: 'hidden',
