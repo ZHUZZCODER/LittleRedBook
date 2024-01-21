@@ -46,7 +46,7 @@ const MineInfo: FC<IProps> = props => {
               </View>
             </View>
           </View>
-          <Text style={styles.infoDesc}>个人简介信息</Text>
+          <Text style={styles.infoDesc}>个人简介信息内容热更新</Text>
           <View style={styles.sexBox}>
             <Image
               source={userInfo.sex === 'male' ? IconMan : IconFemale}
